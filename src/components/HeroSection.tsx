@@ -1,23 +1,63 @@
-import React from "react";
+// src/components/HeroSection.tsx
+import React, { useState } from 'react';
 
-const HeroSection: React.FC = () => {
+interface HeroProps {
+  section: string;
+  onSectionChange: (section: string) => void;
+}
+
+const HeroSection: React.FC<HeroProps> = ({ section, onSectionChange }) => {
+  const [showMore, setShowMore] = useState(false);
+
   return (
-    <section className="bg-sky-400 text-white text-center py-20">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-semibold mb-4">Welcome to Our Website Development Services</h1>
-        <p className="text-lg mb-8">
-          We specialize in creating responsive and marketable websites using the latest
-          technologies and industry best practices. From design to deployment, we ensure that
-          your website is built with the most qualified software, tailored to your business needs.
-        </p>
-        <a
-          href="#services"
-          className="bg-white text-sky-500 px-6 py-3 rounded-full text-lg hover:bg-sky-500 hover:text-white transition duration-300"
-        >
-          Learn More
-        </a>
-      </div>
-    </section>
+    <div className="flex flex-col items-center justify-center min-h-96 p-8 bg-gray-100 text-gray-800">
+      {section ? (
+        <div className="text-center max-w-xl">
+          <button
+            className="text-gray-600 hover:text-blue-600 mb-4"
+            onClick={() => onSectionChange('')}
+          >
+            ← Back
+          </button>
+          <h1 className="text-4xl font-bold mb-4">{section}</h1>
+          <p className="mt-2 text-lg">
+            Welcome to the {section} section! Here, I share insights into my work as a web developer.
+          </p>
+          <p className="mt-4 text-lg">
+            I specialize in creating responsive, engaging, and user-friendly websites. My expertise spans front-end development, UX/UI design, and ensuring optimal performance and accessibility.
+          </p>
+
+          {/* Read More Button */}
+          {!showMore ? (
+            <button
+              className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none"
+              onClick={() => setShowMore(true)}
+            >
+              Read More
+            </button>
+          ) : (
+            <div className="mt-4 text-lg">
+              <p>
+                With a strong foundation in modern JavaScript frameworks like React and experience in TypeScript, I build robust applications that offer smooth interactions and adapt seamlessly across devices. I’m proficient in CSS frameworks like Tailwind, which help me rapidly design sleek, responsive interfaces.
+              </p>
+              <p className="mt-2">
+                My approach to web development emphasizes both aesthetics and functionality. I ensure that every website I create is optimized for performance, accessibility, and SEO to meet the highest standards and deliver a valuable user experience.
+              </p>
+              {/* Show Less Button */}
+              <button
+                className="mt-6 px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none"
+                onClick={() => setShowMore(false)}
+              >
+                
+                Show Less
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <h1 className="text-4xl font-bold">Welcome to home of website</h1>
+      )}
+    </div>
   );
 };
 
